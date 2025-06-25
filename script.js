@@ -127,38 +127,4 @@ function deleteTask(index) {
   tasks.splice(index, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   loadTasks();
-  showToast("❌ Task deleted");
 }
-
-
-// Set filter and reload tasks
-function setFilter(filter) {
-  currentFilter = filter;
-
-  // Highlight active button
-  document.querySelectorAll(".filters button").forEach(btn => {
-    btn.classList.remove("active");
-    if (btn.textContent.toLowerCase() === filter) {
-      btn.classList.add("active");
-    }
-  });
-
-  loadTasks();
-}
-
-function showToast(message, type = "default") {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-
-  // Color classes based on type
-  toast.className = "show";
-  if (type === "success") toast.style.backgroundColor = "#28a745";
-  else if (type === "error") toast.style.backgroundColor = "#dc3545";
-  else if (type === "info") toast.style.backgroundColor = "#007bff";
-  else toast.style.backgroundColor = "#333"; // default
-
-  setTimeout(() => {
-    toast.className = "";
-  }, 2000);
-}
-
