@@ -82,3 +82,33 @@ button:hover {
 li:active {
   transform: scale(0.98);
 }
+
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark .container {
+  background-color: #1e1e1e;
+}
+
+body.dark input {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark li {
+  background-color: #2c2c2c;
+  color: #eee;
+}
+
+body.dark li.completed {
+  color: #888;
+}
+
+body.dark button {
+  background-color: #444;
+  color: #fff;
+}
