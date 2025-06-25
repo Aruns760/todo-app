@@ -15,14 +15,20 @@
 
     <!-- Task Input and Add Button -->
     <input type="text" id="task-input" placeholder="Enter a new task" />
-    <button onclick="addTask()">Add Task</button>
+    <button class="add-btn" onclick="addTask()">➕ Add Task</button>
+
 
     <!-- Filter Buttons -->
     <div class="filters">
-      <button onclick="setFilter('all')">All</button>
-      <button onclick="setFilter('active')">Active</button>
-      <button onclick="setFilter('completed')">Completed</button>
+    <div class="filter-wrapper">
+        <button onclick="setFilter('all')">All</button>
+        <button onclick="setFilter('active')">Active</button>
+        <button onclick="setFilter('completed')">Completed</button>
+        <div class="filter-indicator"></div> <!-- 👈 This is the slidebar -->
     </div>
+    </div>
+
+
 
     <!-- Task List -->
     <ul id="task-list"></ul>
