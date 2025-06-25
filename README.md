@@ -26,3 +26,7 @@ It helps users add, complete, and delete tasks with data saved in **LocalStorage
 1. Clone the repository:
    ```bash
    git clone https://github.com/Aruns760/todo-app.git
+
+## 🌐 Live Demo
+
+🔗 [Click here to view the live To-Do List App](https://aruns760.github.io/todo-app/)
