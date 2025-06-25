@@ -58,3 +58,27 @@ li.completed {
 .filters button:hover {
   background-color: #bbb;
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+li {
+  animation: fadeIn 0.3s ease forwards;
+  transition: background 0.3s, color 0.3s;
+}
+li.completed {
+  text-decoration: line-through;
+  color: gray;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+button {
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+li:active {
+  transform: scale(0.98);
+}
