@@ -1,99 +1,136 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and container */
 body {
-  font-family: Arial;
-  background: #f4f4f4;
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  min-height: 100vh;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
-  margin: 50px auto;
-  width: 90%;
-  max-width: 400px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-input {
-  width: 70%;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Input and buttons */
+input[type="text"] {
+  width: 100%;
   padding: 10px;
-  margin-right: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 button {
-  padding: 10px;
+  padding: 10px 16px;
+  margin: 5px 0;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Task list */
 ul {
   list-style: none;
-  padding: 0;
+  margin-top: 15px;
 }
 
 li {
-  padding: 10px;
-  background: #eee;
-  margin: 5px 0;
+  background-color: #eee;
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation: fadeIn 0.3s ease forwards;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
 }
 
 li.completed {
   text-decoration: line-through;
-  color: gray;
+  color: #999;
 }
 
+li button {
+  background-color: red;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+li button:hover {
+  background-color: darkred;
+}
+
+/* Filters */
 .filters {
+  text-align: center;
   margin: 15px 0;
 }
 
 .filters button {
+  background-color: #ccc;
+  color: #000;
   margin: 0 5px;
   padding: 8px 12px;
   border: none;
-  background-color: #ddd;
-  cursor: pointer;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .filters button:hover {
-  background-color: #bbb;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  background-color: #aaa;
 }
 
-li {
-  animation: fadeIn 0.3s ease forwards;
-  transition: background 0.3s, color 0.3s;
-}
-li.completed {
-  text-decoration: line-through;
-  color: gray;
-  transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-button {
-  transition: transform 0.2s ease;
+/* Theme toggle */
+#theme-toggle {
+  float: right;
+  background-color: #444;
+  margin-bottom: 10px;
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-li:active {
-  transform: scale(0.98);
-}
-
-
+/* Dark Mode */
 body.dark {
   background-color: #121212;
-  color: #ffffff;
+  color: #fff;
 }
 
 body.dark .container {
   background-color: #1e1e1e;
 }
 
-body.dark input {
+body.dark input[type="text"] {
   background-color: #333;
   color: #fff;
   border: 1px solid #555;
@@ -105,10 +142,31 @@ body.dark li {
 }
 
 body.dark li.completed {
-  color: #888;
+  color: #666;
 }
 
 body.dark button {
-  background-color: #444;
+  background-color: #333;
   color: #fff;
+}
+
+body.dark .filters button {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark .filters button:hover {
+  background-color: #777;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
