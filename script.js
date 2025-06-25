@@ -43,8 +43,10 @@ function addTask() {
   tasks.push(task);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   taskInput.value = "";
-  loadTasks();
+  loadTasks();             // First reload the task list
+  showToast("Task added"); // Then show the toast message
 }
+
 
 // Load tasks with current filter
 function loadTasks() {
@@ -61,7 +63,11 @@ function loadTasks() {
 
   filteredTasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.textContent = task.text;
+    const span = document.createElement("span");
+        span.textContent = task.text;
+        span.ondblclick = () => editTask(index, span);
+        li.appendChild(span);
+
     if (task.completed) li.classList.add("completed");
 
     li.onclick = () => toggleTask(index);
@@ -84,6 +90,35 @@ function toggleTask(index) {
   tasks[index].completed = !tasks[index].completed;
   localStorage.setItem("tasks", JSON.stringify(tasks));
   loadTasks();
+
+  if (tasks[index].completed) {
+    showToast("✅ Task completed");
+  } else {
+    showToast("🔄 Task marked active");
+  }
+}
+
+// Edit task
+function editTask(index, spanElement) {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = tasks[index].text;
+  input.className = "edit-input";
+
+  spanElement.replaceWith(input);
+  input.focus();
+
+  input.onblur = () => {
+    tasks[index].text = input.value.trim() || tasks[index].text;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks();
+  };
+
+  input.onkeydown = (e) => {
+    if (e.key === "Enter") input.blur();
+  };
 }
 
 // Delete a task
@@ -92,10 +127,38 @@ function deleteTask(index) {
   tasks.splice(index, 1);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   loadTasks();
+  showToast("❌ Task deleted");
 }
+
 
 // Set filter and reload tasks
 function setFilter(filter) {
   currentFilter = filter;
+
+  // Highlight active button
+  document.querySelectorAll(".filters button").forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.textContent.toLowerCase() === filter) {
+      btn.classList.add("active");
+    }
+  });
+
   loadTasks();
 }
+
+function showToast(message, type = "default") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+
+  // Color classes based on type
+  toast.className = "show";
+  if (type === "success") toast.style.backgroundColor = "#28a745";
+  else if (type === "error") toast.style.backgroundColor = "#dc3545";
+  else if (type === "info") toast.style.backgroundColor = "#007bff";
+  else toast.style.backgroundColor = "#333"; // default
+
+  setTimeout(() => {
+    toast.className = "";
+  }, 2000);
+}
+
