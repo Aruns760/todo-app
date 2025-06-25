@@ -1,8 +1,18 @@
-// Load tasks from LocalStorage on page load
+let currentFilter = 'all'; // default filter
+
+// Load tasks and theme on page load
 window.onload = function () {
   loadTasks();
+
+  // Theme setting from LocalStorage
+  const toggleBtn = document.getElementById("theme-toggle");
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    toggleBtn.textContent = "☀️ Light Mode";
+  }
 };
 
+// Add new task
 function addTask() {
   const taskInput = document.getElementById("task-input");
   const taskText = taskInput.value.trim();
@@ -21,59 +31,13 @@ function addTask() {
   loadTasks();
 }
 
+// Load tasks with filter
 function loadTasks() {
   const taskList = document.getElementById("task-list");
   taskList.innerHTML = "";
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  tasks.forEach((task, index) => {
-    const li = document.createElement("li");
-    li.textContent = task.text;
-    if (task.completed) li.classList.add("completed");
-
-    li.onclick = () => toggleTask(index);
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "❌";
-    deleteBtn.onclick = (e) => {
-      e.stopPropagation();
-      deleteTask(index);
-    };
-
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
-  });
-}
-
-function toggleTask(index) {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks[index].completed = !tasks[index].completed;
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  loadTasks();
-}
-
-function deleteTask(index) {
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.splice(index, 1);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  loadTasks();
-}
-
-// filter
-let currentFilter = 'all'; // Default 
-
-function setFilter(filter) {
-  currentFilter = filter;
-  loadTasks();
-}
-
-function loadTasks() {
-  const taskList = document.getElementById("task-list");
-  taskList.innerHTML = "";
-
-  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-  // Filter tasks
   let filteredTasks = tasks.filter(task => {
     if (currentFilter === 'all') return true;
     if (currentFilter === 'active') return !task.completed;
@@ -98,19 +62,31 @@ function loadTasks() {
     taskList.appendChild(li);
   });
 }
-git add .
-const toggleBtn = document.getElementById("theme-toggle");
 
-// Load theme on page load
-window.onload = function () {
+// Toggle task complete/incomplete
+function toggleTask(index) {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks[index].completed = !tasks[index].completed;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
   loadTasks();
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-    toggleBtn.textContent = "☀️ Light Mode";
-  }
-};
+}
 
-// Toggle dark mode
+// Delete task
+function deleteTask(index) {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.splice(index, 1);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  loadTasks();
+}
+
+// Set current filter
+function setFilter(filter) {
+  currentFilter = filter;
+  loadTasks();
+}
+
+// Theme toggle
+const toggleBtn = document.getElementById("theme-toggle");
 toggleBtn.onclick = function () {
   document.body.classList.toggle("dark");
 
