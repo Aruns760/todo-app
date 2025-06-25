@@ -41,3 +41,20 @@ li.completed {
   text-decoration: line-through;
   color: gray;
 }
+
+.filters {
+  margin: 15px 0;
+}
+
+.filters button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filters button:hover {
+  background-color: #bbb;
+}
