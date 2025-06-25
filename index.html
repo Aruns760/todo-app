@@ -2,17 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>To-Do List</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
+    <!-- Dark Mode Toggle Button -->
+    <button id="theme-toggle">🌙 Dark Mode</button>
+
     <h1>To-Do List</h1>
+
+    <!-- Task Input and Add Button -->
     <input type="text" id="task-input" placeholder="Enter a new task" />
     <button onclick="addTask()">Add Task</button>
+
+    <!-- Filter Buttons -->
+    <div class="filters">
+      <button onclick="setFilter('all')">All</button>
+      <button onclick="setFilter('active')">Active</button>
+      <button onclick="setFilter('completed')">Completed</button>
+    </div>
+
+    <!-- Task List -->
     <ul id="task-list"></ul>
   </div>
+
+  <!-- Script File -->
   <script src="script.js"></script>
 </body>
 </html>
