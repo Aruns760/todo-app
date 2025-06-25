@@ -125,11 +125,11 @@ li {
 
 li.completed {
   text-decoration: line-through;
-  color: #888;
+  color: #c46464;
 }
 
 li button {
-  background-color: red;
+  background-color: rgb(224, 219, 219);
   color: white;
   font-size: 0.8rem;
   padding: 6px 10px;
@@ -154,12 +154,12 @@ li button:hover {
 
 /* Dark Mode */
 body.dark {
-  background-color: #121212;
+  background-color: #514e4e;
   color: #e0e0e0;
 }
 
 body.dark .container {
-  background-color: #1e1e1e;
+  background-color: #000000;
 }
 
 body.dark input[type="text"] {
@@ -174,16 +174,16 @@ body.dark li {
 }
 
 body.dark li.completed {
-  color: #777;
+  color: #32d71f;
 }
 
 body.dark button {
-  background-color: #444;
+  background-color: #000000;
   color: #fff;
 }
 
 body.dark .filters button {
-  background-color: #444;
+  background-color: #656464;
   color: #fff;
 }
 
