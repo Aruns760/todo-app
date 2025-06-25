@@ -223,3 +223,33 @@ body.dark .filters button:hover {
     margin-bottom: 15px;
   }
 }
+
+.filters button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+.edit-input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
+}
+
+#toast.show {
+  opacity: 1;
+}
