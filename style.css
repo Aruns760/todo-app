@@ -5,125 +5,157 @@
   box-sizing: border-box;
 }
 
-/* Body and container */
+/* Body */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f0f2f5;
   color: #333;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
   padding: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Main container */
 .container {
+  width: 100%;
   max-width: 500px;
-  margin: auto;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease;
 }
 
+/* Heading */
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 1.8rem;
   color: #222;
 }
 
-/* Input and buttons */
+/* Input */
 input[type="text"] {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 1rem;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: border 0.3s ease, background-color 0.3s ease;
 }
 
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Buttons */
 button {
   padding: 10px 16px;
-  margin: 5px 0;
-  background-color: #007bff;
-  color: #fff;
+  margin-top: 8px;
+  margin-right: 6px;
+  font-size: 1rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
-/* Task list */
+/* Add Task Button */
+.container > button:nth-of-type(2) {
+  background-color: #28a745;
+  color: white;
+}
+
+.container > button:nth-of-type(2):hover {
+  background-color: #218838;
+}
+
+/* Theme Toggle */
+#theme-toggle {
+  background-color: #444;
+  color: white;
+  float: right;
+  margin-bottom: 10px;
+}
+
+/* Filters */
+.filters {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.filters button {
+  background-color: #e0e0e0;
+  color: #000;
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 20px;
+}
+
+.filters button:hover {
+  background-color: #ccc;
+}
+
+/* Task List */
 ul {
   list-style: none;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 li {
-  background-color: #eee;
-  margin-bottom: 8px;
-  padding: 12px 14px;
-  border-radius: 8px;
+  background-color: #f8f8f8;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   animation: fadeIn 0.3s ease forwards;
-  transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 li.completed {
   text-decoration: line-through;
-  color: #999;
+  color: #888;
 }
 
 li button {
   background-color: red;
+  color: white;
   font-size: 0.8rem;
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 5px;
 }
 
 li button:hover {
   background-color: darkred;
 }
 
-/* Filters */
-.filters {
-  text-align: center;
-  margin: 15px 0;
-}
-
-.filters button {
-  background-color: #ccc;
-  color: #000;
-  margin: 0 5px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.filters button:hover {
-  background-color: #aaa;
-}
-
-/* Theme toggle */
-#theme-toggle {
-  float: right;
-  background-color: #444;
-  margin-bottom: 10px;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Dark Mode */
 body.dark {
   background-color: #121212;
-  color: #fff;
+  color: #e0e0e0;
 }
 
 body.dark .container {
@@ -131,8 +163,8 @@ body.dark .container {
 }
 
 body.dark input[type="text"] {
-  background-color: #333;
-  color: #fff;
+  background-color: #2b2b2b;
+  color: #f1f1f1;
   border: 1px solid #555;
 }
 
@@ -142,31 +174,52 @@ body.dark li {
 }
 
 body.dark li.completed {
-  color: #666;
+  color: #777;
 }
 
 body.dark button {
-  background-color: #333;
+  background-color: #444;
   color: #fff;
 }
 
 body.dark .filters button {
-  background-color: #555;
+  background-color: #444;
   color: #fff;
 }
 
 body.dark .filters button:hover {
-  background-color: #777;
+  background-color: #666;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+    margin: 0 10px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.95rem;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .filters button {
+    width: auto;
+    font-size: 0.85rem;
+    margin: 5px 4px;
+  }
+
+  #theme-toggle {
+    float: none;
+    width: 100%;
+    margin-bottom: 15px;
   }
 }
