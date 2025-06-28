@@ -57,21 +57,20 @@ function updateDateTime() {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   });
   document.getElementById("current-time").textContent = now.toLocaleTimeString();
-}
-
-function addTask() {
+}function addTask() {
   const taskInput = document.getElementById("task-input");
-  const dateInput = document.getElementById("task-date");
   const taskText = taskInput.value.trim();
-  const taskDate = dateInput.value;
+  const taskDate = new Date().toLocaleString(); // 📅 Automatically get current datetime
 
-  if (taskText === "") return;
+  if (taskText === "") {
+    showToast("❗ Please enter a task", "error");
+    return;
+  }
 
   const task = {
     text: taskText,
     completed: false,
-    date: taskDate,
-    createdAt: new Date().toLocaleString() // Save created time
+    createdAt: taskDate
   };
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -79,10 +78,8 @@ function addTask() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   taskInput.value = "";
-  dateInput.value = "";
-
   loadTasks();
-  showToast("Task added");
+  showToast("✅ Task added", "success");
 }
 
 
@@ -92,6 +89,7 @@ function loadTasks() {
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
+  // Filter based on current view
   let filteredTasks = tasks.filter(task => {
     if (currentFilter === 'all') return true;
     if (currentFilter === 'active') return !task.completed;
@@ -100,28 +98,37 @@ function loadTasks() {
 
   filteredTasks.forEach((task, index) => {
     const li = document.createElement("li");
+    if (task.completed) li.classList.add("completed");
 
-    // Task content
+    // Task text
     const span = document.createElement("span");
     span.textContent = task.text;
     span.ondblclick = () => editTask(index, span);
     li.appendChild(span);
 
-    // Task date
+    // Meta info container
+    const metaDiv = document.createElement("div");
+    metaDiv.className = "task-meta";
+
+    // Due Date
     if (task.date) {
       const dueDate = document.createElement("small");
       dueDate.textContent = `📅 Due: ${task.date}`;
       dueDate.className = "task-date";
-      li.appendChild(dueDate);
+      metaDiv.appendChild(dueDate);
     }
 
-    // Task createdAt
-    const createdAt = document.createElement("small");
-    createdAt.textContent = `🕒 Created: ${task.createdAt || 'unknown'}`;
-    createdAt.className = "task-created";
-    li.appendChild(createdAt);
+    // Created At
+    if (task.createdAt) {
+      const createdAt = document.createElement("small");
+      createdAt.textContent = `🕒 Created: ${task.createdAt}`;
+      createdAt.className = "task-created";
+      metaDiv.appendChild(createdAt);
+    }
 
-    // Mark complete button
+    li.appendChild(metaDiv);
+
+    // Complete Task Button
     const checkBtn = document.createElement("button");
     checkBtn.textContent = "✅";
     checkBtn.onclick = (e) => {
@@ -130,7 +137,7 @@ function loadTasks() {
     };
     li.appendChild(checkBtn);
 
-    // Delete button
+    // Delete Task Button
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "❌";
     deleteBtn.onclick = (e) => {
@@ -139,11 +146,10 @@ function loadTasks() {
     };
     li.appendChild(deleteBtn);
 
-    if (task.completed) li.classList.add("completed");
-
     taskList.appendChild(li);
   });
 }
+
 
 
 function toggleTask(index) {

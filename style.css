@@ -30,6 +30,24 @@ body {
   margin: 0;
   padding: 0;
 }
+.task-meta {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #666;
+  opacity: 0.8;
+}
+
+body.dark .task-meta {
+  color: #aaa;
+}
+
+.task-created,
+.task-date {
+  font-style: italic;
+}
 
 /* Navbar */
 .modern-navbar {
