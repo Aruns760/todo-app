@@ -8,36 +8,62 @@
 </head>
 <body>
   <div class="container">
-    <!-- Dark Mode Toggle Button -->
-    <button id="theme-toggle">🌙 Dark Mode</button>
+    <!-- 🔹 NAVBAR (Inside Container) -->
+    <nav class="modern-navbar">
+      <div class="navbar-left">
+        <button id="menu-toggle">☰</button>
+        <h2 class="logo-text">📝 To-Do</h2>
+      </div>
+
+      <div class="navbar-center">
+        <input type="text" placeholder="Search tasks..." id="search-bar" />
+      </div>
+
+      <div class="navbar-right">
+        <button id="theme-toggle">🌙</button>
+      </div>
+    </nav>
+
+    <!-- 🔹 SIDEBAR (Inside Container) -->
+    <aside class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="#">📋 Tasks</a></li>
+        <li><a href="calendar/calendar.html">📆 Calendar</a></li>
+        <li><a href="#">📊 Stats</a></li>
+        <li><a href="#">⚙️ Settings</a></li>
+      </ul>
+    </aside>
 
     <h1>To-Do List</h1>
 
-    <!-- Task Input and Add Button -->
+    <!-- Live Date & Time -->
+    <div class="date-time">
+      <span id="current-date"></span>
+      <span id="current-time"></span>
+    </div>
+
+    <!-- Task Input -->
     <input type="text" id="task-input" placeholder="Enter a new task" />
     <button class="add-btn" onclick="addTask()">➕ Add Task</button>
 
-
-    <!-- Filter Buttons -->
+    <!-- Filter Buttons with Animated Slidebar -->
     <div class="filters">
-    <div class="filter-wrapper">
+      <div class="filter-wrapper">
         <button onclick="setFilter('all')">All</button>
         <button onclick="setFilter('active')">Active</button>
         <button onclick="setFilter('completed')">Completed</button>
-        <div class="filter-indicator"></div> <!-- 👈 This is the slidebar -->
+        <div class="filter-indicator"></div>
+      </div>
     </div>
-    </div>
 
-
-
-    <!-- Task List -->
+    <!-- Task List Output -->
     <ul id="task-list"></ul>
   </div>
 
+  <!-- Toast Message -->
   <div id="toast"></div>
 
-  <!-- Script File -->
+  <!-- Script -->
   <script src="script.js"></script>
-
 </body>
 </html>
