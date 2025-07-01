@@ -9,7 +9,7 @@ window.onload = function () {
   // Load theme
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
-    toggleBtn.textContent = "☀️ Light Mode";
+    toggleBtn.textContent = "☀️";
   }
 
   // Theme toggle
@@ -17,10 +17,10 @@ window.onload = function () {
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
       localStorage.setItem("theme", "dark");
-      toggleBtn.textContent = "☀️ Light Mode";
+      toggleBtn.textContent = "☀️";
     } else {
       localStorage.setItem("theme", "light");
-      toggleBtn.textContent = "🌙 Dark Mode";
+      toggleBtn.textContent = "🌙";
     }
   };
 
