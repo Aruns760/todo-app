@@ -41,15 +41,19 @@
     </div>
 
     <!-- Task Input -->
+    <!-- Task Input -->
     <input type="text" id="task-input" placeholder="Enter a new task" />
+    <input type="date" id="task-date" />
+    <input type="time" id="task-time" />
     <button class="add-btn" onclick="addTask()">➕ Add Task</button>
-
+    
     <!-- Filter Buttons with Animated Slidebar -->
     <div class="filters">
       <div class="filter-wrapper">
         <button onclick="setFilter('all')">All</button>
         <button onclick="setFilter('active')">Active</button>
         <button onclick="setFilter('completed')">Completed</button>
+        <button onclick="setFilter('expired')">Expired</button>
         <div class="filter-indicator"></div>
       </div>
     </div>

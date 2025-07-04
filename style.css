@@ -774,3 +774,23 @@ body.dark .filters button:hover {
 body.dark h1 {
   color: #f0f0f0;
 }
+
+/* Expired tasks */
+.expired-task {
+  opacity: 0.6;
+  background-color: #ffecec;
+  border-left: 4px solid red;
+  padding-left: 8px;
+  border-radius: 6px;
+}
+
+.expired-label {
+  margin-top: 4px;
+  display: block;
+  color: red;
+}
+
+li.expired {
+  background-color: #ffe6e6;
+  color: #a00;
+}

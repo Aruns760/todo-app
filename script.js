@@ -57,29 +57,40 @@ function updateDateTime() {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   });
   document.getElementById("current-time").textContent = now.toLocaleTimeString();
-}function addTask() {
-  const taskInput = document.getElementById("task-input");
-  const taskText = taskInput.value.trim();
-  const taskDate = new Date().toLocaleString(); // 📅 Automatically get current datetime
+}
+function addTask() {
+  const text = document.getElementById("task-input").value.trim();
+  const date = document.getElementById("task-date").value;
+  const time = document.getElementById("task-time").value;
 
-  if (taskText === "") {
-    showToast("❗ Please enter a task", "error");
-    return;
-  }
+  if (text === "") return;
 
   const task = {
-    text: taskText,
+    text,
+    date,           // Expires on this date
+    time,           // Expires at this time
     completed: false,
-    createdAt: taskDate
+    createdAt: new Date().toISOString()
   };
 
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.push(task);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  taskInput.value = "";
+  document.getElementById("task-input").value = "";
+  document.getElementById("task-date").value = "";
+  document.getElementById("task-time").value = "";
+
   loadTasks();
-  showToast("✅ Task added", "success");
+  showToast("➕ Task added");
+}
+
+function isExpired(task) {
+  if (!task.date || task.completed) return false;
+
+  const taskDateTime = new Date(`${task.date}T${task.time || "23:59"}`);
+  const now = new Date();
+  return now > taskDateTime;
 }
 
 
@@ -92,9 +103,11 @@ function loadTasks() {
   // Filter based on current view
   let filteredTasks = tasks.filter(task => {
     if (currentFilter === 'all') return true;
-    if (currentFilter === 'active') return !task.completed;
+    if (currentFilter === 'active') return !task.completed && !isExpired(task);
     if (currentFilter === 'completed') return task.completed;
+    if (currentFilter === 'expired') return isExpired(task) && !task.completed;
   });
+
 
   filteredTasks.forEach((task, index) => {
     const li = document.createElement("li");
@@ -126,7 +139,17 @@ function loadTasks() {
       metaDiv.appendChild(createdAt);
     }
 
-    li.appendChild(metaDiv);
+    // Expired Label
+        // Expired Label
+    if (isExpired(task)) {
+  li.classList.add("expired-task");
+
+  const expiredLabel = document.createElement("small");
+  expiredLabel.textContent = "⚠️ Expired";
+  expiredLabel.style.color = "red";
+  expiredLabel.style.fontWeight = "bold";
+  li.appendChild(expiredLabel);
+}
 
     // Complete Task Button
     const checkBtn = document.createElement("button");
@@ -149,8 +172,6 @@ function loadTasks() {
     taskList.appendChild(li);
   });
 }
-
-
 
 function toggleTask(index) {
   let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -193,11 +214,12 @@ function editTask(index, spanElement) {
   };
 }
 
+
 function setFilter(filter) {
   currentFilter = filter;
   document.querySelectorAll(".filters button").forEach(btn => {
     btn.classList.remove("active");
-    if (btn.textContent.toLowerCase() === filter) {
+    if (btn.textContent.toLowerCase() === filter.toLowerCase()) {
       btn.classList.add("active");
     }
   });
